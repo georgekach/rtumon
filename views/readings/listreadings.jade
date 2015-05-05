@@ -1,0 +1,34 @@
+//
+   Created by George on 3/23/2015.
+extends  ../sblayout
+block content
+    .page-header
+        h3 Readings List
+    table.table.table-striped
+        thead
+            tr
+                td Unit Id
+                td Type
+                td Time
+                td State 1
+                td Last Value 1
+                td State 2
+                td Last value 2
+                    tbody
+                    - each reading in readings
+                        tr
+                            td #{reading.unitId}
+                            td #{reading.type}
+                            td #{reading.time}
+                            td #{reading.state1}
+                            td #{reading.lastValue1}
+                            td #{reading.state2}
+                            td #{reading.lastValue2}    
+
+                script(type="text/javascript").
+                    if (foo) {
+                        bar(1 + 5)
+                        }
+
+
+

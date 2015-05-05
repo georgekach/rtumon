@@ -1,0 +1,79 @@
+//
+   Created by George on 3/30/2015.
+
+.navbar-default.sidebar(role='navigation')
+    .sidebar-nav.navbar-collapse
+        ul#side-menu.nav
+            li.sidebar-search
+                .input-group.custom-search-form
+                    input.form-control(type='text', placeholder='Search...')
+                    span.input-group-btn
+                        button.btn.btn-default(type='button')
+                            i.fa.fa-search
+                // /input-group
+            li
+                a(href='/dashboard')
+                    i.fa.fa-dashboard.fa-fw
+                    |  Dashboard
+            li
+                a(href='#')
+                    i.fa.fa-bar-chart-o.fa-fw
+                    |  Assets
+                    span.fa.arrow
+                ul.nav.nav-second-level
+                    li
+                        a(href='/clients') Clients
+                    li
+                        a(href='/devices') Devices
+                    li
+                        a(href='/readings') Readings
+                // /.nav-second-level
+            li
+                a(href='/sysadmin/index')
+                    i.fa.fa-table.fa-fw
+                    |  System Administration
+            li
+                a(href='forms.html')
+                    i.fa.fa-edit.fa-fw
+                    |  User Administration
+                    span.fa.arrow
+                ul.nav.nav-second-level
+                    li
+                        a(href='/users/list') System Users
+                    li
+                        a(href='/roles/list') User Roles
+                    li
+                        a(href='notifications.html') Access Rights
+            li
+                a(href='forms.html')
+                    i.fa.fa-edit.fa-fw
+                    |  License Administration
+                    span.fa.arrow
+                ul.nav.nav-second-level
+                    li
+                        a(href='/products') Software Products
+                    li
+                        a(href='/licensegen') License Generator
+                    li
+                        a(href='/licensing/notifications') Notifications
+                    li
+                        a(href='/licensing/extension') License Extensions
+                // /.nav-second-level
+            li
+                a(href='#')
+                    i.fa.fa-wrench.fa-fw
+                    |  Notifications
+                    span.fa.arrow
+                ul.nav.nav-second-level
+                    li
+                        a(href='#') System Alerts
+                    li
+                        a(href='#') Device Alerts
+                    li
+                        a(href='#') Notifications
+
+                // /.nav-second-level
+
+
+    // /.sidebar-collapse
+// /.navbar-static-side

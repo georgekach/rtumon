@@ -1,0 +1,23 @@
+//
+   Created by George on 3/18/2015.
+extends ../sblayout
+block content
+    .page-header
+        h3 Devices listing
+    table.table.table-striped
+        thead
+            tr
+                td Device name
+                td Description
+                    tbody
+                    - each dev in devices
+                        tr
+                            td #{dev.deviceId}
+                            td #{dev.description}
+                            td
+                                a(href='/device/edit/#{dev.id}',data-toggle='tooltip',data-placement='top')
+                                    span
+                                    i.fa.fa-pencil.fa-fw
+                                a(href='/device/delete/#{dev.id}' style='padding-left:10px')
+                                    span
+                                    i.fa.fa-trash.fa-fw

@@ -1,0 +1,32 @@
+//
+   Created by George on 3/30/2015.
+
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(name='csrf-token', content=_csrf)
+        title #{title} - Hackathon Starter
+        != css('sb-admin')
+        != css('vendor/sb-admin/metisMenu.min')
+        block head
+    body
+        #wrapper
+            // Navigation
+            include partials/sb-navbar
+            // Page Content
+            #page-wrapper
+                .container-fluid
+                    block content
+                        // /.col-lg-12
+                    // /.row
+                // /.container-fluid
+            // /#page-wrapper
+        // /#wrapper
+        // jQuery
+
+        // Custom Theme JavaScript
+    != js('sb-application')
+

@@ -1,0 +1,97 @@
+//
+   Created by George on 3/30/2015.
+extends ../sblayout
+block head
+    //script(src='http://mbostock.github.com/d3/d3.js?2.5.0')
+    script(type='text/javascript', src="/assets/lib/standalone-framework.js")
+    script(type='text/javascript', src="/assets/lib/highcharts.js")
+    script(type='text/javascript', src="/assets/lib/exporting.js")
+    script(type='text/javascript', src="/assets/lib/socket.io.js")
+    script(type='text/javascript', src="/assets/lib/knockout-3.3.0.js")
+    script(type='text/javascript', src="/assets/lib/justgage.1.0.1.min.js")
+    script(type='text/javascript', src="/assets/lib/raphael.2.1.0.min.js")
+block content
+    .row(style='padding-top: 20px')
+        .col-lg-3.col-md-6
+            #g1
+        .col-lg-3.col-md-6
+            #g2
+        .col-lg-3.col-md-6
+            .panel.panel-yellow
+                .panel-heading
+                    .row
+                        .col-xs-3
+                            i.fa.fa-dashboard.fa-4x
+                        .col-sx-9.text-right
+                            .huge 26
+                            div Humididty
+                a(href='#')
+                    .panel-footer
+                        span.pull-left View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        .clearfix
+        .col-lg-3.col-md-6
+            .panel.panel-red
+                .panel-heading
+                    .row
+                        .col-xs-3
+                            i.fa.fa-dashboard.fa-4x
+                        .col-sx-9.text-right
+                            .huge 26
+                            div New Comments
+                a(href='#')
+                    .panel-footer
+                        span.pull-left View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        .clearfix
+    .row
+        .col-lg-4
+            .panel.panel-default
+                .panel-heading
+                    i.fa.fa-bell.fa-fw
+                    | Notifications panel
+                .panel-body
+                    .list-group
+                        a.list-group-item(href='#')
+                            i.fa.fa-comment.fa-fw
+                            | New Comment
+                            span.pull-right.text-muted.small
+                                em 4 minutes ago
+                        a.list-group-item(href='#')
+                            i.fa.fa-comment.fa-fw
+                            | New Comment
+                            span.pull-right.text-muted.small
+                                em 4 minutes ago
+                        a.list-group-item(href='#')
+                            i.fa.fa-comment.fa-fw
+                            | New Comment
+                            span.pull-right.text-muted.small
+                                em 4 minutes ago
+                    a.btn.btn-default.btn-block(href='#') view All Alerts
+    script(type="text/javascript").
+        var socket = io.connect('http://localhost:3001');
+        var g1 = new JustGage({
+            id: "g1",
+            value: getRandomInt(0, 100),
+            min: 0,
+            max: 100,
+            title: "Cold Room 1",
+            label: "&degC"
+        });
+        var g2 = new JustGage({
+            id: "g1",
+            value: getRandomInt(0, 100),
+            min: 0,
+            max: 100,
+            title: "Cold Room 2",
+            label: "Degrees Celcius"
+        });
+        socket.on('pushdata', function (data) {
+            //document.getElementById("currentreading").innerHTML = data.readingvalue+'.00&degC ';
+                   //ko.applyBindings(new ViewModel(data));
+                   //updateData(data);
+            g1.refresh(data.readingvalue);
+            g2.refresh(data.readingvalue);
+        });

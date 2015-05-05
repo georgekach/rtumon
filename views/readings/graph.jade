@@ -1,0 +1,113 @@
+﻿extends ../sblayout
+block head
+    //script(src='http://mbostock.github.com/d3/d3.js?2.5.0')
+    script(type='text/javascript', src="/assets/lib/standalone-framework.js")
+    script(type='text/javascript', src="/assets/lib/highcharts.js")
+    script(type='text/javascript', src="/assets/lib/exporting.js")
+    script(type='text/javascript', src="/assets/lib/socket.io.js")
+    script(type='text/javascript', src="/assets/lib/knockout-3.3.0.js")
+block content
+    div
+        h3(id='currentreading')
+    div(id='container')
+    script(type="text/javascript").
+        var ViewModel = function (first) {
+            this.firstName = ko.observable(first);
+
+            this.resetClicks = function (data) {
+            this.firstName(data);
+            };
+
+        };
+        ko.applyBindings(new ViewModel(10));
+
+        var globalSeries;
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+        var chart = new Highcharts.Chart({
+            chart: {
+                type: 'spline',
+                renderTo: 'container',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function () {
+
+                        // set up the updating of the chart each second
+                        var series = this.series[0];
+                        globalSeries = series;
+                        //updateData();
+                    }
+                }
+            },
+            title: {
+                text: 'Readings random data'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                            Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [{
+                name: 'Random data',
+                data: (function () {
+                    // generate an array of random data
+                    var data = [],
+                            time = (new Date()).getTime(),
+                            i;
+
+                    for (i = -19; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+                    return data;
+                }())
+            }]
+        });
+
+          function updateData(){
+            //setInterval(function () {
+                var x = (new Date()).getTime(), // current time
+                        y = Math.random();
+                globalSeries.addPoint([x, y], true, true);
+            //}, 1000);
+        };
+        var socket = io.connect('http://localhost:3001');
+
+        socket.on('pushdata', function (data) {
+            document.getElementById("currentreading").innerHTML = data.readingvalue;
+            //ko.applyBindings(new ViewModel(data));
+            //updateData(data);
+
+            var x = data.readingtime,
+                    y = data.readingvalue/100; //Math.random();
+            globalSeries.addPoint([x, y], true, true);
+
+        });

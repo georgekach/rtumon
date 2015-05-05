@@ -1,0 +1,60 @@
+//
+   Created by George on 3/16/2015.
+extends ../sblayout
+block content
+    .page-header
+        h3 Client Details Information
+    form.form-horizontal(action='/client/edit/#{client.id}', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            label.col-sm-2.control-label(for='fname') First Name
+            .col-sm-4
+                input.form-control(type='text', name='fname', id='firstName', value='#{client.fname}')
+            label.col-sm-2.control-label(for='sname') Surname
+            .col-sm-4
+                input.form-control(type='text', name='sname', id='stName', value='#{client.sname}')
+        .form-group
+            .col-sm-offset-2.col-sm-4
+                button.btn.btn.btn-primary(type='submit')
+                    span.ion-edit
+                    | Save Changes
+        div
+        ul.nav.nav-tabs(id='myTab',role='tablist')
+            li.active(role='presentation')
+                a(href='#devices',aria-controls='home',role='tab',data-toggle='tab')
+                    span.ion-home
+                        |  Devices
+            li(role='presentation')
+                a(href='#users',aria-controls='call',role='tab',data-toggle='tab')
+                    span.ion-hammer
+                        | Users
+
+    .tab-content
+        .tab-pane.active(id='devices',role='tabpanel')
+            div
+                h3 Clients Devices
+                a.btn.btn-primary(href='/device/create/#{client.id}') Add New Device
+                table.table.table-hover
+                     thead
+                     tr
+                        td DeviceId
+                        td Description
+                        td Device Type
+                        td Location
+
+                     tbody
+                        - each dev in devices
+                            tr
+                                td  #{dev.deviceId}
+                                td  #{dev.description}
+                                td  #{dev.version}
+                                td  #{dev.location}
+                                td
+                                     a(href='/device/edit/#{dev.id}')
+                                        span
+                                        i.fa.fa-pencil.fa-fw
+        .tab-pane(id='users',role='tabpanel') Users
+script(type="text/javascript").
+    $(function () {
+        $('#myTab a:last').tab('show')
+    })

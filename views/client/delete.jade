@@ -1,0 +1,26 @@
+//
+   Created by George on 3/17/2015.
+
+extends ../sblayout
+
+block content
+    .header
+        h1 Delete Client #{client.id}
+        form.form-horizontal(action='/client/delete/#{client.id}', method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
+            .form-group
+                label.col-sm-2.control-label(for='fname') First Name
+                label.col-sm-2.control-label #{client.id}
+            .form-group
+                label.col-sm-2.control-label(for='sname') SName Name
+                input.form-control(type='text', name='sname', id='stName')
+
+            .form-group
+                    .col-sm-offset-2.col-sm-4
+                        button.btn.btn.btn-primary(type='submit')
+                            span.ion-edit
+                            | Confirm Delete
+                        button.btn.btn.btn-danger(type='cancel')
+                            span
+                            | Cancel Deletion
+

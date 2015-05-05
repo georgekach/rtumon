@@ -1,0 +1,38 @@
+//
+   Created by George on 3/12/2015.
+
+extends ../sblayout
+block content
+    .page-header
+        h3 Clients Listing
+        a.btn.btn-primary(href='/client/create') Add New
+
+        table.table.table-striped
+            thead
+                tr
+                    td Twitter
+                    td dsafdsf
+                        tbody
+                            - each clint in clients
+                                tr
+                                    td #{clint.fname}
+                                    td #{clint.sname}
+                                    td
+                                        a(href='/client/edit/#{clint.id}')
+                                            span
+                                            i.fa.fa-pencil.fa-fw
+                                        a(href='/client/delete/#{clint.id}' style='padding-left:10px')
+                                            span
+                                            i.fa.fa-trash.fa-fw
+        div.modal.hide(id="myModal")
+            .modal-header
+                button(type="button", class="close", data-dismiss="modal") x
+            h3 Modal Header
+            .modal-body
+                p One fine body...
+            .modal-footer
+
+
+
+
+

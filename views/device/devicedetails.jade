@@ -1,0 +1,76 @@
+//
+   Created by George on 3/19/2015.
+extends ../sblayout
+block content
+    .page-header
+        h3 Device Details
+    form.form-horizontal(action='/device/edit/#{device.id}', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            label.col-sm-2.control-label(for='deviceId') Device ID
+            .col-sm-4
+                input.form-control(type='text', name='deviceId', id='deviceId', value='#{device.deviceId}',autofocus)
+            label.col-sm-2.control-label(for='description') Description
+            .col-sm-4
+                input.form-control(type='text', name='description', id='description', value='#{device.description}')
+        .form-group
+            label.col-sm-2.control-label(for='deviceType') Device Type
+            .col-sm-4
+                input.form-control(type='text', name='deviceType', id='deviceType', value='',autofocus)
+            label.col-sm-2.control-label(for='version') Version
+            .col-sm-4
+                input.form-control(type='text', name='version', id='version', value='#{device.version}')
+        .form-group
+            label.col-sm-2.control-label(for='location') Location
+            .col-sm-4
+                input.form-control(type='text', name='location', id='location', value='#{device.location}',autofocus)
+
+        .form-group
+            .col-sm-offset-2.col-sm-4
+                button.btn.btn.btn-primary(type='submit')
+                    span.ion-edit
+                    | Save Changes
+    div
+        ul.nav.nav-tabs(id='myTab',role='tablist')
+            li.active(role='presentation')
+                a(href='#home',aria-controls='home',role='tab',data-toggle='tab')
+                    span.ion-home
+                        |  Home
+            li(role='presentation')
+                a(href='#call',aria-controls='call',role='tab',data-toggle='tab')
+                    span.ion-hammer
+                        | Calliberation
+            li(role='presentation')
+                a(href='#readings',aria-controls='readings',role='tab',data-toggle='tab')
+                    span.ion-thermometer
+                    | Readings
+            li(role='presentation')
+                a(href='#settings',aria-controls='settings',role='tab',data-toggle='tab')
+                    span.ion-settings
+                        | Settings
+    .tab-content
+        .tab-pane.active(id='home',role='tabpanel') home
+        .tab-pane(id='call',role='tabpanel') Calliberation
+        .tab-pane(id='readings',role='tabpanel')
+            div
+                h3 Current Readings
+                table.table.table-striped
+                    thead
+                        tr
+                        td Header1
+                        td Header2
+                        td Time
+                            tbody
+                                - each reading in readings
+                                    tr
+                                    td #{reading.id}
+                                    td #{reading.type}
+                                    td #{reading.time}
+
+        .tab-pane(id='settings',role='tabpanel') Settings
+
+script(type="text/javascript").
+    $(function () {
+        $('#myTab a:last').tab('show')
+    })
+

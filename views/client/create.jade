@@ -1,0 +1,22 @@
+//
+   Created by George on 3/17/2015.
+extends ../sblayout
+
+block content
+    .page-header
+        h3 New Client
+
+    form.form-horizontal(action='/client/create', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            label.col-sm-2.control-label(for='fname') First Name
+            .col-sm-4
+                input.form-control(type='text', name='fname', id='firstName')
+            label.col-sm-2.control-label(for='sname') Surname
+            .col-sm-4
+                input.form-control(type='text', name='sname', id='stName')
+        .form-group
+            .col-sm-offset-2.col-sm-4
+                button.btn.btn.btn-primary(type='submit')
+                    span.ion-edit
+                    | Update Changes

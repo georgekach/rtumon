@@ -10,6 +10,7 @@ block content
                 td Role Name
                 td Description
         tbody
-            tr
-                td Blah
-                td blah
+            - each role in roles
+                tr
+                    td #{role.rolename}
+                    td #{role.description}

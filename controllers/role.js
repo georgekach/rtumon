@@ -5,6 +5,7 @@
 var Role = require('../models/Role');
 exports.listallroles = function(req,res){
 
+
     res.render('roles/listroles',{
         title: 'Roles List'
     });
@@ -42,3 +43,21 @@ exports.createRole = function(req,res){
         });
 
 };
+exports.editrole = function(req,res){
+    var roleId = req.params.id;
+    Role.findById(roleId,function(err,role){
+       if(err)
+       res.send(err);
+
+        if(role)
+        {
+            res.render('roles/edit',{
+                title: 'Edit Role',
+                role: role
+            });
+        }else{
+
+        }
+    });
+
+}

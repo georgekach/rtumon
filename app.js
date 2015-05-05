@@ -132,6 +132,7 @@ app.get('/licensing/notifications',licensingController.licenseNotifications);
 app.get('/licensing/extension',licensingController.licenseExtensions);
 app.get('/users/list',userController.usersList);
 app.get('/roles/list',rolesController.listallroles);
+app.get('/roles/edit/:id',rolesController.editrole);
 app.get('/roles/create',rolesController.createRole)
 app.post('/roles/create',rolesController.postCreateRole)
 app.post('/readings/create/:data',readingsController.captureReading)

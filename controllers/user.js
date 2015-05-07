@@ -40,8 +40,9 @@ exports.postLogin = function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) return next(err);
+
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
+      res.redirect(req.session.returnTo || '/dashboard');
     });
   })(req, res, next);
 };
@@ -372,4 +373,69 @@ exports.usersList = function(req,res){
         }
     });
 
+};
+
+exports.editUser = function(req,res){
+    var userid = req.params.id;
+    User.findById(userid,function(err,user){
+        if(err)
+            res.send(err);
+
+        if(user)
+        {
+            res.render('account/profile',{
+                title: 'Edit AccessRight',
+                user: user
+            });
+        }else{
+
+        }
+    });
+};
+
+exports.postEditUser = function(req,res,next){
+    var userid = req.params.id;
+    User.findById(userid,function(err,user){
+
+        if(err)
+            res.send(err);
+
+        if(user){
+            user.email = req.body.email || '';
+            user.profile.name = req.body.name || '';
+            user.profile.gender = req.body.gender || '';
+            user.profile.location = req.body.location || '';
+            user.profile.website = req.body.website || '';
+
+            user.save(function(err){
+                if(err)
+                {
+                    res.send(err);
+                }else{
+
+                    req.flash('success', { msg: 'Profile information updated.' });
+                    res.redirect('/user/list');
+                }
+
+            });
+        }
+
+    });
+};
+
+exports.postUpdateProfile = function(req, res, next) {
+    User.findById(req.user.id, function(err, user) {
+        if (err) return next(err);
+        user.email = req.body.email || '';
+        user.profile.name = req.body.name || '';
+        user.profile.gender = req.body.gender || '';
+        user.profile.location = req.body.location || '';
+        user.profile.website = req.body.website || '';
+
+        user.save(function(err) {
+            if (err) return next(err);
+            req.flash('success', { msg: 'Profile information updated.' });
+            res.redirect('/account');
+        });
+    });
 };

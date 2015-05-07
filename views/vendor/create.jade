@@ -1,0 +1,42 @@
+//
+   Created by George on 3/18/2015.
+extends ../sblayout
+block content
+    .page-header
+        h3 New Vendor
+    form.form-horizontal(action='/vendor/create', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            label.col-sm-2.control-label(for='vendorname') Vendor Name
+            .col-sm-4
+                input.form-control(type='text', name='vendorname', id='vendorname')
+        .form-group
+            label.col-sm-2.control-label(for='companyname') Company Name
+            .col-sm-4
+                input.form-control(type='text', name='companyname', id='companyname')
+        .form-group
+            label.col-sm-2.control-label(for='address') Address
+            .col-sm-4
+                input.form-control(type='text', name='address', id='address')
+        .form-group
+            label.col-sm-2.control-label(for='notes') Notes
+            .col-sm-4
+                input.form-control(type='text', name='notes', id='notes')
+        .form-group
+            label.col-sm-2.control-label(for='billingaddress') Billing Address
+            .col-sm-4
+                input.form-control(type='text', name='billingaddress', id='billingaddress')
+
+        .form-group
+            label.col-sm-2.control-label(for='billingfrequency') Company Name
+            .col-sm-4
+                input.form-control(type='text', name='billingfrequency', id='billingfrequency')
+        .form-group
+            label.col-sm-2.control-label(for='billingemail') Billing Email
+            .col-sm-4
+                input.form-control(type='text', name='billingemail', id='billingemail')
+        .form-group
+            .col-sm-offset-2.col-sm-4
+                button.btn.btn.btn-primary(type='submit')
+                    span.ion-edit
+                    | Save Changes

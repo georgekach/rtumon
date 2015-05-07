@@ -1,0 +1,24 @@
+//
+   Created by George on 4/14/2015.
+extends ../sblayout
+block content
+    h3 Access Rules
+    a.btn.btn-primary(href='/accessright/create') Create New
+    table.table.table-striped
+        thead
+            tr
+                td Rule Key
+                td Description
+                td
+        tbody
+            - each right in accessRights
+                tr
+                    td #{right.key}
+                    td #{right.description}
+                    td
+                        a(href='/accessright/edit/#{right.id}',data-toggle='tooltip',data-placement='top')
+                            span
+                            i.fa.fa-pencil.fa-fw
+                        a(href='/accessright/delete/#{right.id}',data-toggle='tooltip',data-placement='top')
+                            span
+                            i.fa.fa-trash.fa-fw

@@ -11,41 +11,12 @@ block head
     script(type='text/javascript', src="/assets/lib/justgage.1.0.1.min.js")
     script(type='text/javascript', src="/assets/lib/raphael.2.1.0.min.js")
 block content
-    .row(style='padding-top: 20px')
+    .row(id='gauges',style='padding-top: 20px')
         .col-lg-3.col-md-6
-            #g1
+            #gauge1
         .col-lg-3.col-md-6
-            #g2
-        .col-lg-3.col-md-6
-            .panel.panel-yellow
-                .panel-heading
-                    .row
-                        .col-xs-3
-                            i.fa.fa-dashboard.fa-4x
-                        .col-sx-9.text-right
-                            .huge 26
-                            div Humididty
-                a(href='#')
-                    .panel-footer
-                        span.pull-left View Details
-                        span.pull-right
-                            i.fa.fa-arrow-circle-right
-                        .clearfix
-        .col-lg-3.col-md-6
-            .panel.panel-red
-                .panel-heading
-                    .row
-                        .col-xs-3
-                            i.fa.fa-dashboard.fa-4x
-                        .col-sx-9.text-right
-                            .huge 26
-                            div New Comments
-                a(href='#')
-                    .panel-footer
-                        span.pull-left View Details
-                        span.pull-right
-                            i.fa.fa-arrow-circle-right
-                        .clearfix
+            #gauge2
+
     .row
         .col-lg-4
             .panel.panel-default
@@ -72,26 +43,57 @@ block content
                     a.btn.btn-default.btn-block(href='#') view All Alerts
     script(type="text/javascript").
         var socket = io.connect('http://localhost:3001');
-        var g1 = new JustGage({
-            id: "g1",
-            value: getRandomInt(0, 100),
-            min: 0,
-            max: 100,
-            title: "Cold Room 1",
-            label: "&degC"
-        });
-        var g2 = new JustGage({
-            id: "g1",
-            value: getRandomInt(0, 100),
-            min: 0,
-            max: 100,
-            title: "Cold Room 2",
-            label: "Degrees Celcius"
-        });
+
+
+
+        var element = document.getElementById('gauges');
+        var divElements = element.getElementsByTagName('div');
+        var gauges = [];
+
+        for(var i = 0; i<divElements.length;i++)
+        {
+            if(divElements[i].id.lastIndexOf('gauge')!=-1)
+            {
+
+                gauges[i] = new JustGage({
+                    id: divElements[i].id,
+                    value: getRandomInt(0, 100),
+                    min: 0,
+                    max: 100,
+                    title: "Cold Room 1",
+                    label: "&degC"
+                });
+            }
+
+
+
+        }
+
+
+
+
         socket.on('pushdata', function (data) {
             //document.getElementById("currentreading").innerHTML = data.readingvalue+'.00&degC ';
                    //ko.applyBindings(new ViewModel(data));
+
                    //updateData(data);
-            g1.refresh(data.readingvalue);
-            g2.refresh(data.readingvalue);
+            if(gauges){
+                for(var index = 0;index<gauges.length;index++)
+                {
+                    if(gauges[index])
+                    {
+                        gauges[index].refresh(data.readingvalue);
+                    }
+
+                }
+
+                //window.gauges[0].config.value = data.readingvalue;
+
+            }
+
+
+            //g1.refresh(data.readingvalue);
+            //g2.refresh(data.readingvalue);
         });
+
+        socket.emit('pageReady','George');

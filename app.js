@@ -34,6 +34,10 @@ var readingsController = require('./controllers/readings');
 var licensingController = require('./controllers/licensing')
 var sysAdminController = require('./controllers/sysadmin');
 var rolesController = require('./controllers/role');
+var accessRightsController = require('./controllers/accessright');
+var softwareProductsController = require('./controllers/softwareproduct');
+var vendorController = require('./controllers/Vendor');
+
 /**
  * API keys and Passport configuration.
  */
@@ -130,12 +134,39 @@ app.get('/products',licensingController.listProducts);
 app.get('/licensegen',licensingController.licenseGenerator);
 app.get('/licensing/notifications',licensingController.licenseNotifications);
 app.get('/licensing/extension',licensingController.licenseExtensions);
+
+
 app.get('/users/list',userController.usersList);
+app.get('/user/edit/:id',userController.editUser);
+app.post('/user/edit/:id',userController.postEditUser);
+
 app.get('/roles/list',rolesController.listallroles);
 app.get('/roles/edit/:id',rolesController.editrole);
-app.get('/roles/create',rolesController.createRole)
-app.post('/roles/create',rolesController.postCreateRole)
-app.post('/readings/create/:data',readingsController.captureReading)
+app.post('/roles/edit/:id',rolesController.postEditRole);
+app.get('/roles/create',rolesController.createRole);
+app.post('/roles/create',rolesController.postCreateRole);
+
+app.get('/accessright/list',accessRightsController.listallAccessRights);
+app.get('/accessright/edit/:id',accessRightsController.editAccessRight);
+app.post('/accessright/edit/:id',accessRightsController.postEditAccessRight);
+app.get('/accessright/create',accessRightsController.createAccessRight);
+app.post('/accessright/create',accessRightsController.postCreateAccessRight);
+
+app.get('/vendor/list',vendorController.listallVendors);
+app.get('/vendor/edit/:id',vendorController.editVendor);
+app.post('/vendor/edit/:id',vendorController.postEditVendor);
+app.get('/vendor/create',vendorController.createVendor);
+app.post('/vendor/create',vendorController.postCreateVendor);
+
+app.get('/softwareproduct/list',softwareProductsController.listallSoftwareProducts);
+app.get('/softwareproduct/edit/:id',softwareProductsController.editSoftwareProduct);
+app.post('/softwareproduct/edit/:id', passportConf.isAuthenticated,softwareProductsController.postEditSoftwareProduct);
+app.get('/softwareproduct/create',softwareProductsController.createSoftwareProduct);
+app.post('/softwareproduct/create', passportConf.isAuthenticated,softwareProductsController.postCreateSoftwareProduct);
+
+
+
+app.post('/readings/create/:data',readingsController.captureReading);
 app.get('/sysadmin/index',sysAdminController.index);
 app.get('/client/delete/:id',clientController.deleteClient);
 app.post('/client/delete/:id',passportConf.isAuthenticated,clientController.postDeleteClient);
@@ -238,8 +269,16 @@ var server = app.listen(app.get('port'), function() {
  * Set up Socket.io
  */
 var io = require('socket.io')(server);
-io.on('connection', function(){
-    console.log('Received a connection');
+io.on('connection', function(socket){
+    console.info('Received a connection from '+socket.id);
+
+    socket.on('pageReady',function(data){
+        console.log('Identity is '+data);
+    });
+
+    socket.on('disconnect',function(){
+        console.info('Client has disconnected');
+    })
 });
 
 

@@ -1,0 +1,26 @@
+//
+   Created by George on 5/5/2015.
+extends ../sblayout
+block content
+    .page-header
+        h3 Edit Rule
+    form.form-horizontal(action='/accessright/edit/#{accessRight.id}', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            label.col-sm-2.control-label(for='rolename') Rule Key
+            .col-sm-4
+                input.form-control(type='text', name='key', id='key', value='#{accessRight.key}')
+        .form-group
+            label.col-sm-2.control-label(for='name') Rule Name
+            .col-sm-4
+                input.form-control(type='text', name='name', id='name',value='#{accessRight.name}')
+        .form-group
+            label.col-sm-2.control-label(for='description') Rule description
+            .col-sm-4
+                input.form-control(type='text', name='description', id='description',value='#{accessRight.description}')
+
+        .form-group
+            .col-sm-offset-2.col-sm-4
+                button.btn.btn.btn-primary(type='submit')
+                    span.ion-edit
+                    | Save Changes

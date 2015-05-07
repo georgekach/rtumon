@@ -1,0 +1,24 @@
+//
+   Created by George on 4/14/2015.
+extends ../sblayout
+block content
+    h3 Products List
+    a.btn.btn-primary(href='/softwareproduct/create') Create New
+    table.table.table-striped
+        thead
+            tr
+                td Product Name
+                td Description
+                td
+        tbody
+            - each product in softwareproducts
+                tr
+                    td #{product.productname}
+                    td #{product.description}
+                    td
+                        a(href='/softwareproduct/edit/#{product.id}',data-toggle='tooltip',data-placement='top')
+                            span
+                            i.fa.fa-pencil.fa-fw
+                        a(href='/softwareproduct/delete/#{product.id}',data-toggle='tooltip',data-placement='top')
+                            span
+                            i.fa.fa-trash.fa-fw

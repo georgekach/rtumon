@@ -1,0 +1,26 @@
+//
+   Created by George on 3/18/2015.
+extends ../sblayout
+block content
+    .page-header
+        h3 New Product
+    form.form-horizontal(action='/softwareproduct/create', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            label.col-sm-2.control-label(for='productname') Product Name
+            .col-sm-4
+                input.form-control(type='text', name='productname', id='productname')
+        .form-group
+            label.col-sm-2.control-label(for='description') Description
+            .col-sm-4
+                input.form-control(type='text', name='description', id='description')
+
+        .form-group
+            label.col-sm-2.control-label(for='triallength') Trial Length
+            .col-sm-4
+                input.form-control(type='text', name='triallength', id='triallength')
+        .form-group
+            .col-sm-offset-2.col-sm-4
+                button.btn.btn.btn-primary(type='submit')
+                    span.ion-edit
+                    | Save Changes

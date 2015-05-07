@@ -11,6 +11,7 @@ html
         title #{title} - Hackathon Starter
         != css('sb-admin')
         != css('vendor/sb-admin/metisMenu.min')
+        != css('vendor/toastr/toastr')
         block head
     body
         #wrapper
@@ -19,6 +20,7 @@ html
             // Page Content
             #page-wrapper
                 .container-fluid
+                    include partials/flash
                     block content
                         // /.col-lg-12
                     // /.row

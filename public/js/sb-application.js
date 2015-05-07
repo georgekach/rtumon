@@ -18,4 +18,5 @@
 //= require main
 //= require metisMenu/dist/metisMenu.min
 //= require sb-admin/sb-admin-2
+//= require lib/toastr
 

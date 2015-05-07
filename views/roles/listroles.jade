@@ -9,8 +9,16 @@ block content
             tr
                 td Role Name
                 td Description
+                td
         tbody
             - each role in roles
                 tr
                     td #{role.rolename}
                     td #{role.description}
+                    td
+                        a(href='/roles/edit/#{role.id}',data-toggle='tooltip',data-placement='top')
+                            span
+                            i.fa.fa-pencil.fa-fw
+                        a(href='/roles/delete/#{role.id}',data-toggle='tooltip',data-placement='top')
+                            span
+                            i.fa.fa-trash.fa-fw

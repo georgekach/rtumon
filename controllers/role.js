@@ -5,10 +5,14 @@
 var Role = require('../models/Role');
 exports.listallroles = function(req,res){
 
+    Role.find(function(err,roles){
+        res.render('roles/listroles',{
+            title: 'Roles List',
+            roles: roles
+        });
 
-    res.render('roles/listroles',{
-        title: 'Roles List'
     });
+
 
 };
 
@@ -20,14 +24,17 @@ exports.postCreateRole =function(req,res,next){
     role.description = req.body.description;
 
 
-    role.save(function(err)
-        {  if(err){
-            res.send(err);
-        }
-            req.toastr.info('New role successfully added');
-            //req.flash('info',{msg:'New Client successfully added'});
-            res.redirect('/roles/list');
+    role.save(function(err) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                //req.toastr.info('New role successfully added');
+                req.flash('info', {msg: 'New Client successfully added'});
+                //res.render('roles/list',{req:req});
 
+                res.redirect('/roles/list');
+            }
         }
 
     );
@@ -59,5 +66,30 @@ exports.editrole = function(req,res){
 
         }
     });
+};
 
+exports.postEditRole = function(req,res,next){
+    var roleid = req.params.id;
+    Role.findById(roleid,function(err,role){
+
+        if(err)
+        res.send(err);
+        else {
+            if (role) {
+                role.rolename = req.body.rolename;
+                role.description = req.body.description;
+
+                role.save(function (err) {
+                    if (err) {
+                        res.send(err);
+                    }else{
+
+                        res.redirect('/roles/list');
+                    }
+
+                });
+            }
+        }
+
+    })
 }

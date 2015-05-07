@@ -7,12 +7,13 @@ html
     meta(name='csrf-token', content=_csrf)
     title #{title} - Hackathon Starter
     != css('main')
+    //!= css('stylish-portfolio')
       block head
 
   body
     include partials/navbar
 
-    .container
+    .container-fluid
       include partials/flash
       block content
 

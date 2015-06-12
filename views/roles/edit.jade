@@ -15,6 +15,15 @@ block content
             .col-sm-4
                 input.form-control(type='text', name='description', id='description',value='#{role.description}')
         .form-group
+            label.col-sm-2.control-label Selection
+            .col-sm-4
+                select.form-control(name='selectpicker')
+                    optgroup(label='Select Table')
+                        option(name='',value=0) select table
+                        option(name='table1',value='1') Table1
+                        option(name='table2',value='2') Table2
+
+        .form-group
             .col-sm-offset-2.col-sm-4
                 button.btn.btn.btn-primary(type='submit')
                     span.ion-edit

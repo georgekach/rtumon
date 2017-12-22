@@ -40,7 +40,7 @@ var homeTitle = blessed.text({
   align: 'center',
   fg: 'blue',
   bg: 'white',
-  content: 'Hackathon Starter (c) 2014'
+  content: 'Hackathon Starter (c) 2015'
 });
 
 var footer = blessed.text({
